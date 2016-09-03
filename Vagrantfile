@@ -93,10 +93,22 @@ Vagrant.configure("2") do |config|
       "mysql",
     ]
     chef.json = chef_setting
-  end
 
+  # Vagrant plugin setting
+  unless Vagrant.has_plugin?("vagrant-omnibus")
+    raise "Plugin not installed: vagrant-omnibus. Please excecute `vagrant plugin install vagrant-omnibus`."
+  end
   config.omnibus.chef_version = :latest
+
+  unless Vagrant.has_plugin?("vagrant-berkshelf")
+    raise "Plugin not installed: vagrant-berkshelf. Please excecute `vagrant plugin install vagrant-berkshelf`."
+  end
   config.berkshelf.berksfile_path = "./chef-repo/Berksfile"
   config.berkshelf.enabled = true
+
+  unless Vagrant.has_plugin?("vagrant-cachier")
+    raise "Plugin not installed: vagrant-cachier. Please excecute `vagrant plugin install vagrant-cachier`."
+  end
+  config.cache.scope = :box
 
 end

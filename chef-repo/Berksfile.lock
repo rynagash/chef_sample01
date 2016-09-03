@@ -1,0 +1,36 @@
+DEPENDENCIES
+  apache
+    path: site-cookbooks/apache
+  build-essential
+  localedef
+    path: site-cookbooks/localedef
+  mysql
+    path: site-cookbooks/mysql
+  php
+    path: site-cookbooks/php
+  yum-epel
+  yum-remi
+
+GRAPH
+  apache (0.1.0)
+  build-essential (6.0.4)
+    compat_resource (>= 12.10)
+    mingw (>= 1.1)
+    seven_zip (>= 0.0.0)
+  chef_handler (1.4.0)
+  compat_resource (12.14.0)
+  localedef (0.1.0)
+  mingw (1.2.4)
+    compat_resource (>= 0.0.0)
+    seven_zip (>= 0.0.0)
+  mysql (0.1.0)
+  php (0.1.0)
+  seven_zip (2.0.2)
+    windows (>= 1.2.2)
+  windows (1.44.3)
+    chef_handler (>= 0.0.0)
+  yum (3.12.0)
+  yum-epel (0.7.1)
+    yum (>= 3.6.3)
+  yum-remi (0.1.0)
+    yum (>= 0.0.0)

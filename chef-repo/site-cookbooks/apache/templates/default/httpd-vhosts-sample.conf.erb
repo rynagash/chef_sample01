@@ -1,0 +1,16 @@
+NameVirtualHost *:<%= @listen %>
+
+<VirtualHost *:<%= @listen %>>
+  ServerName <%= @server_name %>
+  DocumentRoot <%= @document_root %>
+
+  <Directory "<%= @document_root %>">
+    Options FollowSymLinks
+    AllowOverride None
+    Order allow,deny
+    Allow from all
+  </Directory>
+
+  ErrorLog <%= @error_log %>
+  CustomLog <%= @access_log %> common
+</VirtualHost>

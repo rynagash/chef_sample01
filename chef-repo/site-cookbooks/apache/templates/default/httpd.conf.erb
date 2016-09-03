@@ -1,0 +1,52 @@
+ServerRoot "/usr/local/apache2"
+Listen <%= @listen %>
+
+<IfModule unixd_module>
+User <%= @user %>
+Group <%= @group %>
+</IfModule>
+
+ServerAdmin <%= @server_admin %>
+ServerName <%= @server_name %>
+
+<Directory />
+    AllowOverride none
+    Require all denied
+</Directory>
+
+DocumentRoot "<%= @document_root %>"
+<Directory "<%= @document_root %>">
+    Options Indexes FollowSymLinks
+    AllowOverride None
+    Require all granted
+</Directory>
+
+<IfModule dir_module>
+    DirectoryIndex <%= @directory_index %>
+</IfModule>
+
+<Files ".ht*">
+    Require all denied
+</Files>
+
+ErrorLog "logs/error_log"
+LogLevel warn
+
+<IfModule log_config_module>
+    LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" combined
+    LogFormat "%h %l %u %t \"%r\" %>s %b" common
+
+    <IfModule logio_module>
+      LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" %I %O" combinedio
+    </IfModule>
+
+    CustomLog "logs/access_log" common
+</IfModule>
+
+<IfModule mime_module>
+    TypesConfig conf/mime.types
+    AddType application/x-compress .Z
+    AddType application/x-gzip .gz .tgz
+</IfModule>
+
+<% if @use_vhosts %>Include conf/extra/httpd-vhosts-*.conf<% end %>

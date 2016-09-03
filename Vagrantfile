@@ -93,6 +93,7 @@ Vagrant.configure("2") do |config|
       "mysql",
     ]
     chef.json = chef_setting
+  end
 
   # Vagrant plugin setting
   unless Vagrant.has_plugin?("vagrant-omnibus")

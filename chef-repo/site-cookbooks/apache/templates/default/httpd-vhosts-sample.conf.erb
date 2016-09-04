@@ -7,8 +7,7 @@ NameVirtualHost *:<%= @listen %>
   <Directory "<%= @document_root %>">
     Options FollowSymLinks
     AllowOverride None
-    Order allow,deny
-    Allow from all
+    Require all granted
   </Directory>
 
   ErrorLog <%= @error_log %>

@@ -5,7 +5,7 @@ cookbook 'yum-epel'
 cookbook 'yum-remi'
 cookbook 'localedef', path: './site-cookbooks/localedef/'
 cookbook 'apache', path: './site-cookbooks/apache/'
-cookbook 'php', path: './site-cookbooks/php/'
+# cookbook 'php', path: './site-cookbooks/php/'
 cookbook 'mysql', path: './site-cookbooks/mysql/'
 
 # cookbook 'timezone-ii', git: "https://github.com/L2G/timezone-ii.git"

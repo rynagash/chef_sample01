@@ -26,7 +26,12 @@ source_info = {
   :httpd => {
     :file_name  => 'httpd-2.4.23.tar.gz',
     :file_dir   => 'httpd-2.4.23',
-    :configure  => './configure --enable-modules=all --enable-ssl',
+    :configure  => './configure \
+      --enable-load-all-modules \
+      --enable-modules=all \
+      --enable-mods-shared=all \
+      --enable-mods-strict=all \
+      --enable-ssl',
     :remote_uri => 'http://ftp.riken.jp/net/apache/httpd/httpd-2.4.23.tar.gz'
   }
 }
@@ -96,14 +101,13 @@ template '/usr/local/apache2/conf/httpd.conf' do
   source 'httpd.conf.erb'
 
   variables ({
-    :listen          => 80,
-    :user            => 'apache',
-    :group           => 'apache',
+    :listen          => node[:apache][:listen],
+    :user            => node[:aapche][:user],
+    :group           => node[:aapche][:group],
     :server_admin    => 'localhost@example.com',
     :server_name     => 'localhost',
     # :document_root   => '/usr/local/apache2/htdocs',
     :document_root   => node[:apache][:document_root],
-    # :directory_index => 'index.html',
     :directory_index => 'index.php index.html',
     # :use_vhosts      => use_vhosts,
   })

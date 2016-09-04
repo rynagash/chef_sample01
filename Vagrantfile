@@ -5,7 +5,10 @@ sync_folder = 'www/app'
 
 chef_setting = {
   :apache =>  {
-    :document_root => '/var/www/app'
+    :document_root => '/var/www/app',
+    :user          => 'vagrant',
+    :group         => 'vagrant',
+    :listen        => 80
   }
 }
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
@@ -35,7 +38,6 @@ Vagrant.configure("2") do |config|
   # using a specific IP.
   config.vm.network "private_network", ip: "192.168.33.10"
   config.vm.hostname = "chef-sample01.local"
-
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
@@ -89,7 +91,7 @@ Vagrant.configure("2") do |config|
       "yum-remi",
       "localedef",
       "apache",
-      "php",
+      # "php",
       "mysql",
     ]
     chef.json = chef_setting

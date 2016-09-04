@@ -30,7 +30,7 @@ source_info = {
       --enable-load-all-modules \
       --enable-modules=all \
       --enable-mods-shared=all \
-      --enable-mods-strict=all \
+      --enable-mods-static=all \
       --enable-ssl',
     :remote_uri => 'http://ftp.riken.jp/net/apache/httpd/httpd-2.4.23.tar.gz'
   }
@@ -102,8 +102,8 @@ template '/usr/local/apache2/conf/httpd.conf' do
 
   variables ({
     :listen          => node[:apache][:listen],
-    :user            => node[:aapche][:user],
-    :group           => node[:aapche][:group],
+    :user            => node[:apache][:user],
+    :group           => node[:apache][:group],
     :server_admin    => 'localhost@example.com',
     :server_name     => 'localhost',
     # :document_root   => '/usr/local/apache2/htdocs',

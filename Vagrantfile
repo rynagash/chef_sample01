@@ -5,10 +5,16 @@ sync_folder = 'www/app'
 
 chef_setting = {
   :apache =>  {
+    :packages => %w(httpd24u httpd24u-devel),
+    :options  => "--enablerepo=ius",
     :document_root => '/var/www/app',
     :user          => 'vagrant',
     :group         => 'vagrant',
     :listen        => 80
+  },
+  :php => {
+    :packages => %w(php php-devel php-common php-cli php-pear php-pdo php-mysqlnd php-xml php-process php-mbstring php-mcrypt php-pecl-xdebug),
+    :options  => "--enablerepo=remi,epel --enablerepo=remi-php56"
   }
 }
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
@@ -89,9 +95,10 @@ Vagrant.configure("2") do |config|
       "build-essential",
       "yum-epel",
       "yum-remi",
+      "yum-ius",
       "localedef",
       "apache",
-      # "php",
+      "php",
       "mysql",
     ]
     chef.json = chef_setting

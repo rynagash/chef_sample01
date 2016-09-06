@@ -23,8 +23,23 @@ end
 
 log("tz-info(after): #{Time.now.strftime("%z %Z")}")
 
-yum_package "yum-fastestmirror" do
+yum_package 'yum-fastestmirror' do
   action :install
+end
+
+yum_package 'zsh' do
+  action :install
+end
+
+bash 'chsh' do
+  code 'chsh -s /bin/zsh vagrant'
+end
+
+template '/home/vagrant/.zshrc' do
+  owner 'vagrant'
+  mode 0755
+  source 'zshrc.erb'
+  path '/home/vagrant/.zshrc' 
 end
 
 execute "yum-update" do

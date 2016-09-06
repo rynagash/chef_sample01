@@ -1,4 +1,4 @@
-ServerRoot "/usr/local/apache2"
+ServerRoot "/etc/httpd"
 Listen <%= @listen %>
 
 <IfModule unixd_module>
@@ -44,9 +44,23 @@ LogLevel warn
 </IfModule>
 
 <IfModule mime_module>
-    TypesConfig conf/mime.types
-    AddType application/x-compress .Z
-    AddType application/x-gzip .gz .tgz
+    #TypesConfig conf/mime.types
+    #AddType application/x-compress .Z
+    #AddType application/x-gzip .gz .tgz
 </IfModule>
 
-<% if @use_vhosts %>Include conf/extra/httpd-vhosts-*.conf<% end %>
+<% if @use_vhosts %>Include conf/extra/app-vhosts-*.conf<% end %>
+
+<IfModule mod_php5.c>
+    <FilesMatch "\.ph(p3?|tml)$">
+      	#SetHandler application/x-httpd-php
+    </FilesMatch>
+    <FilesMatch "\.phps$">
+      # SetHandler application/x-httpd-php-source
+    </FilesMatch>
+    <IfModule mod_userdir.c>
+        <Directory /home/*/public_html>
+            # php_admin_value engine Off
+        </Directory>
+    </IfModule>
+</IfModule>

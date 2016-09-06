@@ -6,28 +6,16 @@
 #
 # All rights reserved - Do Not Redistribute
 #
-%w[
-  php php-devel
-  php-common
-  php-cli
-  php-pear
-  php-pdo
-  php-mysqlnd
-  php-xml
-  php-process
-  php-mbstring
-  php-mcrypt
-  php-pecl-xdebug
-].each do |p|
-  package p do
-    action :install
-    options "--enablerepo=remi,epel --enablerepo=remi-php56"
+node[:php][:packages].each do |package_name|
+  package "#{package_name}" do
+    action [:install, :upgarde, :start]
+    options node[:php][:options]
   end
 end
 
 # php 設定
-template "php.ini" do
-  path "/etc/php.ini"
-  source "php.ini.erb"
+template "app.ini" do
+  path "/etc/php.d/app.ini"
+  source "app.ini.erb"
   mode 0644
 end

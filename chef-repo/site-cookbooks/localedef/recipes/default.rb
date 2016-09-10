@@ -39,7 +39,7 @@ template '/home/vagrant/.zshrc' do
   owner 'vagrant'
   mode 0755
   source 'zshrc.erb'
-  path '/home/vagrant/.zshrc' 
+  path '/home/vagrant/.zshrc'
 end
 
 execute "yum-update" do

@@ -6,7 +6,7 @@ sync_folder = 'www/app'
 chef_setting = {
   :apache =>  {
     :packages => %w(httpd24u httpd24u-devel),
-    :options  => "--enablerepo=ius",
+    :options  => '--enablerepo=ius',
     :document_root => '/var/www/app',
     :user          => 'vagrant',
     :group         => 'vagrant',

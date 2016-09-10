@@ -19,3 +19,14 @@ template "app.ini" do
   source "app.ini.erb"
   mode 0644
 end
+
+# composer
+bash 'install_composer' do
+  not_if { File.exists?('/usr/local/bin/composer') }
+  user 'root'
+  cwd '/tmp'
+  code <<-EOH
+    curl -sS https://getcomposer.org/installer | php -- --install-dir=/tmp
+    mv /tmp/composer.phar /usr/local/bin/composer
+  EOH
+end

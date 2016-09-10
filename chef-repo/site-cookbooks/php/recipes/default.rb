@@ -8,7 +8,7 @@
 #
 node[:php][:packages].each do |package_name|
   package "#{package_name}" do
-    action [:install, :upgarde, :start]
+    action [:install, :upgrade]
     options node[:php][:options]
   end
 end

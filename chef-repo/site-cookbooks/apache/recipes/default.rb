@@ -17,7 +17,7 @@ end
 
 node[:apache][:packages].each do |package_name|
   package "#{package_name}" do
-    action [:install, :upgarde, :start]
+    action [:install, :upgrade]
     options node[:apache][:options]
   end
 end
@@ -40,6 +40,9 @@ template '/etc/httpd/conf.d/app.conf' do
     :directory_index => 'index.php index.html',
     # :use_vhosts      => use_vhosts,
   })
+
+  # notifies :start, 'bash[apachectl start]'  # ←　ここで:start指令を送る
+  # notifies :reload, 'service[apache]'
 end
 
 # vhosts.each do |key, vhost|

@@ -13,7 +13,7 @@ chef_setting = {
     :listen        => 80
   },
   :php => {
-    :packages => %w(php php-devel php-common php-cli php-pear php-pdo php-mysqlnd php-xml php-process php-mbstring php-mcrypt php-pecl-xdebug),
+    :packages => %w(php php-devel php-common php-cli php-pear php-pdo php-mysqlnd php-xml php-process php-mbstring php-mcrypt php-pecl-xdebug php-opcache),
     :options  => "--enablerepo=remi,epel --enablerepo=remi-php56"
   }
 }
@@ -42,7 +42,7 @@ Vagrant.configure("2") do |config|
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
-  config.vm.network "private_network", ip: "192.168.33.10"
+  config.vm.network "private_network", ip: "192.168.33.11"
   config.vm.hostname = "chef-sample01.local"
 
   # Create a public network, which generally matched to bridged network.

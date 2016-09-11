@@ -24,13 +24,3 @@ service 'mysqld' do
   supports :status => true, :restart => true, :reload => true
   action [:enable, :start]
 end
-
-# mysql_service 'default' do
-#   version '5.7'
-#   initial_root_password 'password'
-#   action [:create, :start]
-# end
-#
-# mysql_client 'default' do
-#   action :create
-# end

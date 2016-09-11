@@ -14,7 +14,15 @@ chef_setting = {
   },
   :php => {
     :packages => %w(php php-devel php-common php-cli php-pear php-pdo php-mysqlnd php-xml php-process php-mbstring php-mcrypt php-pecl-xdebug php-opcache),
-    :options  => "--enablerepo=remi,epel --enablerepo=remi-php56"
+    :options  => '--enablerepo=remi,epel --enablerepo=remi-php56'
+  },
+  :mysql => {
+    :root_password => 'root',
+    :db_name       => 'test',
+    :user => {
+      :name      => 'vagrant',
+      :password  => 'vagrant'
+    }
   }
 }
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
@@ -100,6 +108,7 @@ Vagrant.configure("2") do |config|
       "apache",
       "php",
       "mysql",
+      "mysql:secure",
     ]
     chef.json = chef_setting
   end

@@ -1,12 +1,13 @@
 # create database
-db_name = node["mysql"]["db_name"]
+root_password = node["mysql"]["root_password"]
+db_name       = node["mysql"]["db_name"]
 execute "create_db" do
-  command "/usr/bin/mysql -u root -p#{root_password} < #{chef::config[:file_cache_path]}/create_db.sql"
+  command "/usr/bin/mysql -u root -p#{root_password} < #{Chef::Config[:file_cache_path]}/create_db.sql"
   action :nothing
   not_if "/usr/bin/mysql -u root -p#{root_password} -D #{db_name}"
 end
 
-template "#{chef::config[:file_cache_path]}/create_db.sql" do
+template "#{Chef::Config[:file_cache_path]}/create_db.sql" do
   owner "root"
   group "root"
   mode 0644

@@ -1,12 +1,12 @@
 # secure install
 root_password = node["mysql"]["root_password"]
 execute "secure_install" do
-  command "/usr/bin/mysql -u root < #{chef::config[:file_cache_path]}/secure_install.sql"
+  command "/usr/bin/mysql -u root < #{Chef::Config[:file_cache_path]}/secure_install.sql"
   action :nothing
   only_if "/usr/bin/mysql -u root -e 'show databases;'"
 end
 
-template "#{chef::config[:file_cache_path]}/secure_install.sql" do
+template "#{Chef::Config[:file_cache_path]}/secure_install.sql" do
   owner "root"
   group "root"
   mode 0644

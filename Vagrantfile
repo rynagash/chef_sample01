@@ -18,7 +18,7 @@ chef_setting = {
   },
   :mysql => {
     :root_password => 'root',
-    :db_name       => 'test',
+    :db_name       => 'wpdb',
     :user => {
       :name      => 'vagrant',
       :password  => 'vagrant'
@@ -108,7 +108,9 @@ Vagrant.configure("2") do |config|
       "apache",
       "php",
       "mysql",
-      "mysql:secure",
+      "mysql::secure",
+      "mysql::user",
+      "mysql::createdb",
     ]
     chef.json = chef_setting
   end

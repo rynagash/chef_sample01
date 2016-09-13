@@ -111,6 +111,7 @@ Vagrant.configure("2") do |config|
       "mysql::secure",
       "mysql::user",
       "mysql::createdb",
+      "wordpress"
     ]
     chef.json = chef_setting
   end

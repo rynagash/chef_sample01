@@ -8,6 +8,8 @@ DEPENDENCIES
     path: site-cookbooks/mysql
   php
     path: site-cookbooks/php
+  wordpress
+    path: site-cookbooks/wordpress
   yum-epel
   yum-ius
   yum-remi
@@ -31,6 +33,7 @@ GRAPH
     windows (>= 1.2.2)
   windows (1.44.3)
     chef_handler (>= 0.0.0)
+  wordpress (0.1.0)
   yum (3.12.0)
   yum-epel (0.7.1)
     yum (>= 3.6.3)

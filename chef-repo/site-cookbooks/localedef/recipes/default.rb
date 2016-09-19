@@ -27,8 +27,10 @@ yum_package 'yum-fastestmirror' do
   action :install
 end
 
-yum_package 'zsh' do
-  action :install
+%w(zsh vim tree jq).each do |package_name|
+  package "#{package_name}" do
+    action [:install, :upgrade]
+  end
 end
 
 bash 'chsh' do

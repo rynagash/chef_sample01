@@ -1,4 +1,4 @@
-NameVirtualHost *:<%= @listen %>
+Listen <%= @listen %>
 
 <VirtualHost *:<%= @listen %>>
   ServerName <%= @server_name %>
@@ -11,5 +11,5 @@ NameVirtualHost *:<%= @listen %>
   </Directory>
 
   ErrorLog <%= @error_log %>
-  CustomLog <%= @access_log %> common
+  CustomLog <%= @access_log %>
 </VirtualHost>

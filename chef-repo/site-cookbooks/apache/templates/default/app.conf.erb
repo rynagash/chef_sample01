@@ -49,7 +49,7 @@ LogLevel warn
     #AddType application/x-gzip .gz .tgz
 </IfModule>
 
-<% if @use_vhosts %>Include conf/extra/app-vhosts-*.conf<% end %>
+<% if @use_vhosts %>Include conf.d/app-vhosts-*.conf<% end %>
 
 <IfModule mod_php5.c>
     <FilesMatch "\.ph(p3?|tml)$">

@@ -1,16 +1,22 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-sync_folder = 'www/app'
+require 'pathname'
 
 chef_setting = {
   :apache =>  {
     :packages => %w(httpd24u httpd24u-devel),
     :options  => '--enablerepo=ius',
-    :document_root => '/var/www/app',
+    :document_root => '/var/www/wordpress',
     :user          => 'vagrant',
     :group         => 'vagrant',
-    :listen        => 80
+    :listen        => 80,
+    :vhosts => {
+      :test => {
+        :document_root => '/var/www/test',
+        :log_directory => '/var/log/httpd/test/',
+      }
+    }
   },
   :php => {
     :packages => %w(php php-devel php-common php-cli php-pear php-pdo php-mysqlnd php-xml php-process php-mbstring php-mcrypt php-pecl-xdebug php-opcache),
@@ -38,10 +44,12 @@ Vagrant.configure("2") do |config|
   # boxes at https://atlas.hashicorp.com/search.
   config.vm.box = "bento/centos-7.2"
 
+  config.ssh.forward_agent = true
+
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
   # `vagrant box outdated`. This is not recommended.
-  # config.vm.box_check_update = false
+  config.vm.box_check_update = true
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
@@ -64,7 +72,10 @@ Vagrant.configure("2") do |config|
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
   config.vm.synced_folder ".", "/vagrant", :mount_options => ['dmode=755', 'fmode=644']
-  config.vm.synced_folder sync_folder, chef_setting[:apache][:document_root], :create => "true", :mount_options => ['dmode=755', 'fmode=644']
+  config.vm.synced_folder 'www/wordpress', chef_setting[:apache][:document_root], :create => "true", :mount_options => ['dmode=755', 'fmode=644']
+  chef_setting[:apache][:vhosts].each do |key, vhost|
+    config.vm.synced_folder 'www/' + key.to_s, vhost[:document_root], :create => "true", :mount_options => ['dmode=755', 'fmode=644']
+  end
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.

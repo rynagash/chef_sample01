@@ -26,11 +26,8 @@ node[:apache][:packages].each do |package_name|
   end
 end
 
-bash 'chmod /var/log/httpd' do
-  code 'sudo chmod 755 /var/log/httpd'
-end
-
 script 'chmod_log_file' do
+  only_if 'ls /var/log/httpd/*'
   interpreter 'bash'
   user        'root'
   code <<-EOL
@@ -41,7 +38,7 @@ end
 
 # template '/usr/local/apache2/conf/app.conf' do
 template '/etc/httpd/conf.d/app.conf' do
-  # only_if 'ls /usr/local/apache2/conf'
+  # not_if '/etc/httpd/conf.d/app.conf'
   owner 'root'
   mode 0644
   source 'app.conf.erb'

@@ -28,8 +28,8 @@ chef_setting = {
     :root_password => 'root',
     :db_name       => 'wpdb',
     :user => {
-      :name      => 'vagrant',
-      :password  => 'vagrant',
+      :name      => 'wp_user',
+      :password  => 'wp_PASS',
     }
   }
 }

@@ -11,7 +11,7 @@
 #
 
 # vhosts利用可否
-use_vhosts = true
+use_vhosts = node[:apache][:use_vhosts]
 
 %w(openssl-devel pcre-devel).each do |package_name|
   package "#{package_name}" do

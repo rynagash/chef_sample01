@@ -12,23 +12,24 @@ chef_setting = {
     :user          => 'vagrant',
     :group         => 'vagrant',
     :listen        => 80,
-    :vhosts => {
-      :test => {
-        :document_root => '/var/www/test',
-        :log_directory => '/var/log/httpd/test/',
-      }
-    }
+    :use_vhosts    => false,
+    # :vhosts => {
+    #   :test => {
+    #     :document_root => '/var/www/test',
+    #     :log_directory => '/var/log/httpd/test/',
+    #   }
+    # }
   },
   :php => {
     :packages => %w(php php-devel php-common php-cli php-pear php-pdo php-mysqlnd php-xml php-process php-mbstring php-mcrypt php-pecl-xdebug php-opcache),
-    :options  => '--enablerepo=remi,epel --enablerepo=remi-php56'
+    :options  => '--enablerepo=remi,epel --enablerepo=remi-php56',
   },
   :mysql => {
     :root_password => 'root',
     :db_name       => 'wpdb',
     :user => {
       :name      => 'vagrant',
-      :password  => 'vagrant'
+      :password  => 'vagrant',
     }
   }
 }
@@ -74,8 +75,10 @@ Vagrant.configure("2") do |config|
   # config.vm.synced_folder "../data", "/vagrant_data"
   config.vm.synced_folder ".", "/vagrant", :mount_options => ['dmode=755', 'fmode=644']
   config.vm.synced_folder 'www/wordpress', chef_setting[:apache][:document_root], :create => "true", :mount_options => ['dmode=755', 'fmode=644']
-  chef_setting[:apache][:vhosts].each do |key, vhost|
-    config.vm.synced_folder 'www/' + key.to_s, vhost[:document_root], :create => "true", :mount_options => ['dmode=755', 'fmode=644']
+  if chef_setting[:apache][:use_vhosts]
+    chef_setting[:apache][:vhosts].each do |key, vhost|
+      config.vm.synced_folder 'www/' + key.to_s, vhost[:document_root], :create => "true", :mount_options => ['dmode=755', 'fmode=644']
+    end
   end
 
   # Provider-specific configuration so you can fine-tune various

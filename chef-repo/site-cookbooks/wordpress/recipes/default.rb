@@ -8,19 +8,19 @@
 #
 
 user = "vagrant"
-# wordpress = "wordpress-4.6.1-ja.tar.gz"
+wordpress = "wordpress-4.6.1-ja.tar.gz"
 
-# cookbook_file "wordpress" do
-#   source wordpress
-#   user user
-#   group user
-#   path "/home/#{user}/#{wordpress}"
-# end
+cookbook_file "wordpress" do
+  source wordpress
+  user user
+  group user
+  path "/home/#{user}/#{wordpress}"
+end
 
-document_root = node[:apache][:document_root]
-# execute "install wordpress" do
-#   user user
-#   group user
-#   command "tar zxvf /home/#{user}/#{wordpress} -C #{document_root}"
-#   action :run
-# end
+document_base = node[:apache][:document_base]
+execute "install wordpress" do
+  user user
+  group user
+  command "tar zxvf /home/#{user}/#{wordpress} -C #{document_base}"
+  action :run
+end

@@ -7,6 +7,7 @@ chef_setting = {
   :apache =>  {
     :packages => %w(httpd24u httpd24u-devel),
     :options  => '--enablerepo=ius',
+    :document_base => '/var/www',
     :document_root => '/var/www/wordpress',
     :user          => 'vagrant',
     :group         => 'vagrant',

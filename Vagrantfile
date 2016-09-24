@@ -8,7 +8,7 @@ chef_setting = {
     :packages => %w(httpd24u httpd24u-devel),
     :options  => '--enablerepo=ius',
     :document_base => '/var/www',
-    :document_root => '/var/www/wordpress',
+    :document_root => '/var/www/app',
     :user          => 'vagrant',
     :group         => 'vagrant',
     :listen        => 80,
@@ -26,10 +26,10 @@ chef_setting = {
   },
   :mysql => {
     :root_password => 'root',
-    :db_name       => 'wpdb',
+    :db_name       => 'smile_db',
     :user => {
-      :name      => 'wp_user',
-      :password  => 'wp_PASS',
+      :name      => 'smile_user',
+      :password  => 'smile_PASS',
     }
   }
 }
@@ -74,7 +74,7 @@ Vagrant.configure("2") do |config|
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
   config.vm.synced_folder ".", "/vagrant", :mount_options => ['dmode=755', 'fmode=644']
-  config.vm.synced_folder 'www/wordpress', chef_setting[:apache][:document_root], :create => "true", :mount_options => ['dmode=755', 'fmode=644']
+  config.vm.synced_folder 'www/app', chef_setting[:apache][:document_root], :create => "true", :mount_options => ['dmode=755', 'fmode=644']
   if chef_setting[:apache][:use_vhosts]
     chef_setting[:apache][:vhosts].each do |key, vhost|
       config.vm.synced_folder 'www/' + key.to_s, vhost[:document_root], :create => "true", :mount_options => ['dmode=755', 'fmode=644']
@@ -126,7 +126,6 @@ Vagrant.configure("2") do |config|
       "mysql::secure",
       "mysql::user",
       "mysql::createdb",
-      "wordpress"
     ]
     chef.json = chef_setting
   end

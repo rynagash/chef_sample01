@@ -7,7 +7,8 @@
 # All rights reserved - Do Not Redistribute
 #
 bash 'loca7ledef' do
-  code 'sudo localedef -f UTF-8 -i ja_JP ja_JP.UTF-8'
+  user "root"
+  code 'localedef -f UTF-8 -i ja_JP ja_JP.UTF-8'
 end
 
 # clock settings
@@ -44,8 +45,7 @@ template '/home/vagrant/.zshrc' do
   path '/home/vagrant/.zshrc'
 end
 
-execute "yum-update" do
+bash "yum-update" do
   user "root"
-  command "yum -y update"
-  action :run
+  code "yum -y update"
 end

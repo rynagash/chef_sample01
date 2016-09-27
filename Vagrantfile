@@ -129,6 +129,7 @@ Vagrant.configure("2") do |config|
       "localedef",
       "apache",
       "php",
+      "php::phalcon",
       "mysql",
       "mysql::secure",
       "mysql::user",

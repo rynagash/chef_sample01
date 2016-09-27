@@ -12,13 +12,20 @@ chef_setting = {
     :user          => 'vagrant',
     :group         => 'vagrant',
     :listen        => 80,
-    :use_vhosts    => false,
-    # :vhosts => {
-    #   :test => {
-    #     :document_root => '/var/www/test',
-    #     :log_directory => '/var/log/httpd/test/',
-    #   }
-    # }
+    :use_vhosts    => true,
+    :vhosts => {
+      :admin => {
+        :path          => '/etc/httpd/conf.d/app-vhosts-admin.conf',
+        :source        => 'app-vhosts-admin.conf.erb',
+        :listen        => 8080,
+        :server_admin  => 'localhost@vhosts.com',
+        :server_name   => 'localhost',
+        :document_root => '/var/www/admin',
+        :log_directory => '/var/log/httpd/admin/',
+        :error_log     => 'error_log',
+        :access_log    => 'access_log'
+      }
+    }
   },
   :php => {
     :packages => %w(php php-devel php-common php-cli php-pear php-pdo php-mysqlnd php-xml php-process php-mbstring php-mcrypt php-pecl-xdebug php-opcache),

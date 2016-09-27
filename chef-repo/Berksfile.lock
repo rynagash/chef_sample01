@@ -8,20 +8,17 @@ DEPENDENCIES
     path: site-cookbooks/mysql
   php
     path: site-cookbooks/php
-  wordpress
-    path: site-cookbooks/wordpress
   yum-epel
   yum-ius
   yum-remi
 
 GRAPH
   apache (0.1.0)
-  build-essential (6.0.4)
-    compat_resource (>= 12.10)
+  build-essential (6.0.6)
+    compat_resource (>= 12.14)
     mingw (>= 1.1)
     seven_zip (>= 0.0.0)
-  chef_handler (1.4.0)
-  compat_resource (12.14.0)
+  compat_resource (12.14.6)
   localedef (0.1.0)
   mingw (1.2.4)
     compat_resource (>= 0.0.0)
@@ -31,14 +28,12 @@ GRAPH
     apache (>= 0.0.0)
   seven_zip (2.0.2)
     windows (>= 1.2.2)
-  windows (1.44.3)
-    chef_handler (>= 0.0.0)
-  wordpress (0.1.0)
-  yum (3.12.0)
-  yum-epel (0.7.1)
-    yum (>= 3.6.3)
-  yum-ius (0.4.6)
-    yum (~> 3.2)
+  windows (2.0.2)
+  yum (4.0.0)
+  yum-epel (1.0.1)
+    yum (>= 3.6)
+  yum-ius (1.0.0)
+    yum (>= 3.2)
     yum-epel (>= 0.0.0)
   yum-remi (0.1.0)
     yum (>= 0.0.0)

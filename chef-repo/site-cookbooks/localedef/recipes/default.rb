@@ -28,7 +28,7 @@ yum_package 'yum-fastestmirror' do
   action :install
 end
 
-%w(zsh vim tree jq).each do |package_name|
+%w(zsh vim tree jq git).each do |package_name|
   package "#{package_name}" do
     action [:install, :upgrade]
   end

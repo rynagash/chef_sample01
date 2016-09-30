@@ -7,20 +7,24 @@
 # All rights reserved - Do Not Redistribute
 #
 
-bash "add phalcon repo" do
+bash "install phalcon" do
+  not_if 'ls /usr/lib64/php/modules/phalcon.so'
   user "root"
-  code "curl -s https://packagecloud.io/install/repositories/phalcon/stable/script.deb.sh | bash"
-end
-
-
-yum_package "php56-phalcon" do
-  action [:install, :upgrade]
-  options node[:php][:options]
+  code <<-EOH
+    cd /tmp
+    git clone --depth=1 https://github.com/phalcon/cphalcon.git
+    cd cphalcon/build
+    ./install
+    cd php5/64bits
+    ./configure --with-php-config=/usr/bin/php-config
+    make
+    make install
+  EOH
 end
 
 # php 設定
-template "falcon.ini" do
-  path "/etc/php.d/falcon.ini"
-  source "falcon.ini.erb"
+template "phalcon.ini" do
+  path "/etc/php.d/phalcon.ini"
+  source "phalcon.ini.erb"
   mode 0644
 end

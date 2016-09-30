@@ -24,20 +24,6 @@ node[:apache][:packages].each do |package_name|
   end
 end
 
-script 'chmod_log_file' do
-  only_if 'ls /var/log/httpd/*'
-  interpreter 'bash'
-  user        'root'
-  code <<-EOL
-    chmod 755 /var/log/httpd
-    chmod 666 /var/log/httpd/*
-  EOL
-end
-
-
-# vhosts利用可否
-use_vhosts = node[:apache][:use_vhosts]
-
 # template '/usr/local/apache2/conf/app.conf' do
 template '/etc/httpd/conf.d/app.conf' do
   # not_if '/etc/httpd/conf.d/app.conf'
@@ -54,11 +40,30 @@ template '/etc/httpd/conf.d/app.conf' do
     :server_name     => 'localhost',
     :document_root   => node[:apache][:document_root],
     :directory_index => 'index.php index.html',
-    :use_vhosts      => use_vhosts,
+    :use_vhosts      => node[:apache][:use_vhosts],
   })
 end
 
-if use_vhosts
+script 'chmod_log_file' do
+  only_if 'ls /var/log/httpd/'
+  interpreter 'bash'
+  user        'root'
+  code <<-EOL
+    chmod 755 /var/log/httpd
+  EOL
+end
+
+script 'chmod_log_file' do
+  only_if 'ls /var/log/httpd/*'
+  interpreter 'bash'
+  user        'root'
+  code <<-EOL
+    chmod 666 /var/log/httpd/*
+  EOL
+end
+
+
+if node[:apache][:use_vhosts]
   # 作成するvhostsの情報、複数登録可能
   vhosts = node[:apache][:vhosts]
 

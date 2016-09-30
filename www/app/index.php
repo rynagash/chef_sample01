@@ -1,6 +1,8 @@
-<pre>
 <?php
-echo "app!!".PHP_EOL;
-print_r(get_loaded_extensions());
-?>
-</pre>
+$app = new Phalcon\Mvc\Micro();
+
+$app->get('/', function() {
+  echo "<h1>Welcome</h1>";
+});
+
+$app->handle();

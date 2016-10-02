@@ -92,13 +92,17 @@ Vagrant.configure("2") do |config|
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
   #
-  # config.vm.provider "virtualbox" do |vb|
-  #   # Display the VirtualBox GUI when booting the machine
-  #   vb.gui = true
-  #
-  #   # Customize the amount of memory on the VM:
-  #   vb.memory = "1024"
-  # end
+  config.vm.provider "virtualbox" do |vb|
+    # Display the VirtualBox GUI when booting the machine
+    # vb.gui = true
+    # vb.gui = false
+
+    # Customize the amount of memory on the VM:
+    vb.memory = "1024"
+
+    # remote display is disabled
+    vb.customize ["modifyvm", :id, "--vrde", "off"]
+  end
   #
   # View the documentation for the provider you are using for more
   # information on available options.
@@ -129,7 +133,7 @@ Vagrant.configure("2") do |config|
       "localedef",
       "apache",
       "php",
-      # "php::phalcon",
+      "php::phalcon",
       "mysql",
       "mysql::secure",
       "mysql::user",
